@@ -1,29 +1,22 @@
 # ASCII Image Converter
-Программа выводит растовые изображения с помощью ASCII символов.
+The program displays raster images using ASCII characters.
 
-# Зависимости
+# Dependences
 * Python3.8
 * pillow (`pip3 install pillow`)
 
-# Установка
+# Install
 ## Linux
-> Предполагается, что у вас установен Python3.8 и git
+> You must have Python3.8 and Git installed
 1. `pip3 install pillow`
 2. `git clone https://github.com/DarkSeriusCode/ASCII-image`
 3. `cd ASCII-image`
 
-# Использование
+# Usage
 `python3 img.py [-h] [-r RESIZE] [--symbols SYMBOLS] [--no-print] file`
 
-+ `-r`                Устанавливает множитель сжатия изображения, а также сжимает
-					изображение и сохраняет как `result.jpg`. Множитель сжатия
-					покажывает во сколько раз размер картинки будет уменьшен.
-					Например, если множитель 2, тогда (500x500 px) => (250x250 px)
++ `-r` -- Sets the image compression multiplier and also compresses the input image and saves 						it as `result.jpg`. The compression multiplier indicates how many times the image is compressed. For example: if the compression multiplier is 2, and the image size is 500x500px, then the program will compress the image to a size of 250x2500px.
 
-+ `--symbols`   	  Устанавливает допустимые символы. Этими 
-					символами будут заменены пиксели изображения. Индекс
-					символа для замены расчитывается по формуле 
-					`color_code // (255 // symbols)`, где color_code - 
-					это среднее арифметическое всех цветов пикселя.
++ `--symbols` -- Sets valid characters. Image pixels will be replaced with these characters. Index replacement character is calculated by the formula `color_code // (255 // symbols)`, where color_code is the arithmetic mean of all the colors of the pixel.
 
-+ `--no-print`		Если установлен, то изображение не будет выводиться.
++ `--no-print` -- The image will be not display if this option selected.
