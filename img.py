@@ -14,11 +14,14 @@ Color = Tuple[int, int, int]
 class Canvas:
     def __init__(self, size: Tuple[int, int]):
         self.width, self.height = size
-        self.canvas = [["" for _ in range(self.width)] for _ in range(self.height)]
+        self.canvas = [["" for _ in range(self.width * 2)] for _ in range(self.height)]
 
     def set_char(self, x: int, y: int, symbol: str):
         """Устанавливает символ в canvas"""
-        self.canvas[y][x] = symbol
+        try:
+            self.canvas[y][x] = symbol
+            self.canvas[y][x + 1] = symbol
+        except IndexError: pass
     
     def show(self):
         """Выводит canvas"""
@@ -89,9 +92,9 @@ def main():
     argparser.add_argument("-r", type=int, dest="resize", default=1,
                             help="How many times to compress the image")
 
-    argparser.add_argument("--light-palette", type=str, 
-                            dest="palette", default=" .,-+*&#@$",
-                            help="Setup light palette. see README.md")
+    argparser.add_argument("--symbols", type=str, 
+                            dest="symbols", default=" .,-+*&#@$№",
+                            help="Setup symbols. see README.md")
 
     argparser.add_argument("--no-print", 
                             dest="noprint", action="store_false",
@@ -103,7 +106,7 @@ def main():
     K = 1 if not args.resize else args.resize 
     # .,-~:;=!*#$@
     # .,-+*&#@$
-    SYMBOLS = args.palette
+    SYMBOLS = args.symbols
     NOPRINT = not args.noprint
 
     STEP_SIZE = 255 // len(SYMBOLS)
@@ -121,7 +124,7 @@ def main():
 
     # Построение canvas
     for Y in range(picture.height):
-        for X in range(picture.width):
+        for X in range(0, picture.width, 2):
             color_code = sum(picture.getpixel((X, Y))) // 3
 
             # Определение символа в соответствии с color_code
@@ -134,4 +137,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
